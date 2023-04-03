@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
       send_cmd->ControlGet(ROBOT);                                            ///< Return the control right, input: ROBOT: Original algorithm control of the robot .  SDK: SDK control PS: over 50ms, no data set sent_ Send (cmd), you will lose control, you need to resend to obtain control
       break;
     }
-    //send_cmd->send_cmd(robot_joint_cmd);               
+    //send_cmd->SendCmd(robot_joint_cmd);               
     //cout << robot_joint_cmd.fr_leg[2].tor << endl;
   }
   return 0;
