@@ -1,5 +1,7 @@
 # 绝影Lite3运动控制SDK
 
+[English](https://github.com/DeepRoboticsLab/Lite3_MotionSDK#readme)
+
 ### SDK下载及解压
 
 - 下载`Lite3_MotionSDK`到开发主机；
