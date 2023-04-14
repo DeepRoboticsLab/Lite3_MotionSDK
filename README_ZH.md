@@ -1,25 +1,24 @@
-# Jueying Lite3 Motion SDK
+# 绝影Lite3运动控制SDK
 
-### SDK Download and Unzip
+### SDK下载及解压
 
-- Download `Lite3_MotionSDK` to your development host;
-- Unzip `Lite3_MotionSDK` to a new folder named ***jy_sdl_ml*** .
+- 下载`Lite3_MotionSDK`到开发主机；
+- 将`Lite3_MotionSDK`解压至一个新建文件夹下并将文件夹重命名为 ***jy_sdk_ml***。
 
-### Remote Connection
+### 远程连接
 
-Users can connect to the motion host remotely via SSH.
+用户可通过SSH远程连接到运动主机。
 
-- Connect the development host to the robot's WiFi.
+- 将开发主机连接到机器人WiFi。
 
-- Open the SSH connection software on the development host and enter `ssh firefly@192.168.1.120`, with the password `firefly`, to connect to the motion host remotely.
+- 在开发主机上打开SSH连接软件，输入`ssh firefly@192.168.1.120`，密码为 `firefly`，即可远程连接运动主机。
 
-- Enter the following code to open the network config file:
+- 输入以下命令以打开网络配置文件：
 	```Bash
 	cd /home/firefly/jy_exe/conf/
 	vim network.toml
 	```
-	
-- The config file ***network.toml*** reads as follows:
+- 配置文件***network.toml***内容如下：
 	```toml
 	ip = '192.168.1.102'
 	target_port = 43897
@@ -27,23 +26,22 @@ Users can connect to the motion host remotely via SSH.
 	~
 	```
 	
-- Modify the IP address in the first line of the config file so that MotionSDK can receive motion data from the robot.
-	- If MotionSDK runs on the motion host of robot, please reset the IP address to `192.168.1.120`;
-	- If MotionSDK runs on your development host, please reset it to the static IP address of your development host:  `192.168.1.xxx`.
+- 修改配置文件第一行中的IP地址，使得代码能够接收到机器狗数据:
+	- 如果代码在机器人运动主机内运行，IP设置为运动主机IP：`192.168.1.120`；  
+	- 如果代码在用户自己的开发主机中运行，设置为开发主机的静态IP：`192.168.1.XXX`。
 	
-- Restart the motion program for these changes to take effect:
-
+- 重启运动程序使配置生效：
 	```bash
 	cd /home/firefly/jy_exe
 	sudo ./stop.sh
 	sudo ./restart.sh
 	```
 
-### Compile and Develop
+### 编译开发
 
-- Enter the folder  ***jy_sdk_ml***, create a  new folder named ***build***, and then compile.
+- 编译开发时，开发者需进入 ***jy_sdk_ml***，新建 ***build***文件夹，并编译。
 
-   - Compile for x86 hosts:
+   - 如果主机是X86架构，在终端中输入：
 
 		```bash
 		cd jy_sdk_ml
@@ -53,7 +51,7 @@ Users can connect to the motion host remotely via SSH.
 		make -j
 		```
 
-   - Compile for ARM hosts:
+   - 如果主机是ARM架构，在终端中输入：
 
 		```bash
 		cd jy_sdk_ml
@@ -63,19 +61,18 @@ Users can connect to the motion host remotely via SSH.
 		make -j
 		```
 
-- After compilation, an executable file named ***Lite_motion*** is generated in the folder ***build***.
-
-- Enter the following codes in Terminal to run the program:
+- 编译结束后，会在 ***build*** 目录下生成一个名为 ***Lite_motion*** 的可执行文件，此即为我们代码编译出来的结果；
+- 在终端中继续输入以下命令行以运行程序：
 
    ```bash
    ./Lite_motion
    ```
 
-### Example Code
+### 示例代码
 
-This section explains ***main.cpp***.
+本节对***main.cpp***进行说明。  
 
-Timer, used to set the algorithm period and obtain the current time:
+定时器，用于设置算法周期，获得当前时间：
 
    ```cpp
 	DRTimer set_timer;
@@ -85,7 +82,7 @@ Timer, used to set the algorithm period and obtain the current time:
  	set_timer.GetIntervalTime(double);                    		  ///< Get the current time
    ```
 
-After binding the IP and port of the robot, SDK will acquire control right and can send the joint control commands:
+SDK在绑定机器人的IP和端口后，获取控制权， 发送关节控制指令：
 
    ```cpp
 	Sender* send_cmd = new Sender("192.168.1.120",43893); 		  ///< Create a sender thread
@@ -94,14 +91,14 @@ After binding the IP and port of the robot, SDK will acquire control right and c
 	send_cmd->ControlGet(int);                            		  ///< Return the control right
    ```
 
-SDK receives the joint data from the robot:
+SDK接收机器人下发的关节数据：
 
    ```cpp
 	Receiver* robot_data_recv = new Receiver();           		  ///< Create a thread for receiving and parsing
 	robot_data_recv->GetState(); 			      		  ///< Receive data from 12 joints 
    ```
 
-The data SDK received will be saved into `robot_data`:
+SDK接收到的关节数据将保存在`robot_data`中：
 
    ```cpp
 	RobotData *robot_data = &robot_data_recv->GetState(); 		  ///< Saving joint data to the robot_data
@@ -141,7 +138,7 @@ The data SDK received will be saved into `robot_data`:
 	robot_data->joint_data->joint_data[]              		  ///< All joint data
    ```
 
- Robot joint control command:
+ 机器人关节控制指令：
 
    ```cpp
 	RobotCmd robot_joint_cmd;  					  ///< Target data of each joint
@@ -158,11 +155,7 @@ The data SDK received will be saved into `robot_data`:
 	robot_joint_cmd.fl_leg[]->velocity;				  ///< Velocity of left front leg
    ```
 
-A simple demo that can make the robot stand:
-
-1. Draw the robot's legs in and prepare to stand;
-2. Record the current time and joint data;
-3. The robot stands up.
+机器人站立的简单demo：1.将机器人腿收起来，为站立做准备；2.记录下当前时间与关节数据；3.机器人起立。
 
    ```cpp
 	MotionExample robot_set_up_demo;                      		  ///< Demo for testing
