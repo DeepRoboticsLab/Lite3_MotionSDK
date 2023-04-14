@@ -4,8 +4,8 @@
 
 ### SDK Download and Unzip
 
-- Download `Lite3_MotionSDK` to your development host.
-- Unzip `Lite3_MotionSDK` to a new folder named ***jy_sdl_ml***.
+- Download ***Lite3_MotionSDK*** to your development host.
+- Unzip ***Lite3_MotionSDK*** to a new folder named ***jy_sdl_ml***.
 
 ### Remote Connection
 

@@ -4,8 +4,8 @@
 
 ### SDK下载及解压
 
-- 下载`Lite3_MotionSDK`到开发主机；
-- 将`Lite3_MotionSDK`解压至一个新建文件夹下并将文件夹重命名为 ***jy_sdk_ml***。
+- 下载 ***Lite3_MotionSDK*** 到开发主机；
+- 将 ***Lite3_MotionSDK*** 解压至一个新建文件夹下并将文件夹重命名为 ***jy_sdk_ml***。
 
 ### 远程连接
 
