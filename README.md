@@ -1,9 +1,11 @@
 # Jueying Lite3 Motion SDK
 
+[简体中文](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/blob/main/README_ZH.md)
+
 ### SDK Download and Unzip
 
-- Download `Lite3_MotionSDK` to your development host;
-- Unzip `Lite3_MotionSDK` to a new folder named ***jy_sdl_ml*** .
+- Download `Lite3_MotionSDK` to your development host.
+- Unzip `Lite3_MotionSDK` to a new folder named ***jy_sdl_ml***.
 
 ### Remote Connection
 
@@ -27,9 +29,9 @@ Users can connect to the motion host remotely via SSH.
 	~
 	```
 	
-- Modify the IP address in the first line of the config file so that MotionSDK can receive motion data from the robot.
-	- If MotionSDK runs on the motion host of robot, please reset the IP address to `192.168.1.120`;
-	- If MotionSDK runs on your development host, please reset it to the static IP address of your development host:  `192.168.1.xxx`.
+- Modify the IP address in the first line of the config file so that **MotionSDK** can receive motion data from the robot.
+	- If **MotionSDK** runs on the motion host of robot, please reset the IP address to `192.168.1.120`;
+	- If **MotionSDK** runs on your development host, please reset it to the static IP address of your development host:  `192.168.1.xxx`.
 	
 - Restart the motion program for these changes to take effect:
 
