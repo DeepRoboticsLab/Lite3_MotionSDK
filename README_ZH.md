@@ -4,12 +4,11 @@
 
 ### SDK下载及解压
 
-- 下载 ***Lite3_MotionSDK*** 到开发主机；
-- 将 ***Lite3_MotionSDK*** 解压至一个新建文件夹下并将文件夹重命名为 ***jy_sdk_ml***。
+- 下载 **Lite3_MotionSDK**，并解压。
 
 ### 远程连接
 
-用户可通过SSH远程连接到运动主机。
+开发者可通过SSH远程连接到运动主机。
 
 - 将开发主机连接到机器人WiFi。
 
@@ -20,7 +19,7 @@
 	cd /home/firefly/jy_exe/conf/
 	vim network.toml
 	```
-- 配置文件***network.toml***内容如下：
+- 配置文件 ***network.toml*** 内容如下：
 	```toml
 	ip = '192.168.1.102'
 	target_port = 43897
@@ -28,9 +27,9 @@
 	~
 	```
 	
-- 修改配置文件第一行中的IP地址，使得代码能够接收到机器狗数据:
-	- 如果代码在机器人运动主机内运行，IP设置为运动主机IP：`192.168.1.120`；  
-	- 如果代码在用户自己的开发主机中运行，设置为开发主机的静态IP：`192.168.1.XXX`。
+- 修改配置文件第一行中的IP地址，使得 **MotionSDK** 能够接收到机器狗数据:
+	- 如果 **MotionSDK** 在机器人运动主机内运行，IP设置为运动主机IP：`192.168.1.120`；  
+	- 如果 **MotionSDK** 在开发者自己的开发主机中运行，设置为开发主机的静态IP：`192.168.1.XXX`。
 	
 - 重启运动程序使配置生效：
 	```bash
@@ -41,29 +40,35 @@
 
 ### 编译开发
 
-- 编译开发时，开发者需进入 ***jy_sdk_ml***，新建 ***build***文件夹，并编译。
+- 编译开发时，开发者可进入解压得到的文件夹，在***CMakeLists.txt*** 的同级目录下新建 ***build*** 文件夹；
 
-   - 如果主机是X86架构，在终端中输入：
+   ```bash
+cd xxxxxxxx     # cd <path to where you want to create build directory>
+	mkdir build
+	```
+	
+	> 注意：开发者可在任何地方创建 ***build*** 文件夹，但在编译时，`cmake` 指令须指向 ***CMakeLists.txt*** 所在的路径。
+
+- 打开 ***build*** 文件夹并编译；
+
+   - 如果主机是x86架构，在终端中输入：
 
 		```bash
-		cd jy_sdk_ml
-		mkdir build
 		cd build
-		cmake .. -DBUILD_PLATFORM=x86
+		cmake .. -DBUILD_PLATFORM=x86     # cmake <path to where the CMakeLists.txt is>
 		make -j
 		```
+		
+	- 如果主机是ARM架构，在终端中输入：
 
-   - 如果主机是ARM架构，在终端中输入：
-
-		```bash
-		cd jy_sdk_ml
-		mkdir build
-		cd build
-		cmake .. -DBUILD_PLATFORM=arm
+   	```bash
+	cd build
+		cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
 		make -j
 		```
-
+	
 - 编译结束后，会在 ***build*** 目录下生成一个名为 ***Lite_motion*** 的可执行文件，此即为我们代码编译出来的结果；
+
 - 在终端中继续输入以下命令行以运行程序：
 
    ```bash
@@ -72,7 +77,7 @@
 
 ### 示例代码
 
-本节对***main.cpp***进行说明。  
+本节对 ***main.cpp*** 进行说明。  
 
 定时器，用于设置算法周期，获得当前时间：
 

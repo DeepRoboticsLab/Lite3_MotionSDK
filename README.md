@@ -4,8 +4,7 @@
 
 ### SDK Download and Unzip
 
-- Download ***Lite3_MotionSDK*** to your development host.
-- Unzip ***Lite3_MotionSDK*** to a new folder named ***jy_sdl_ml***.
+- Download ***Lite3_MotionSDK*** and unzip.
 
 ### Remote Connection
 
@@ -43,29 +42,34 @@ Users can connect to the motion host remotely via SSH.
 
 ### Compile and Develop
 
-- Enter the folder  ***jy_sdk_ml***, create a  new folder named ***build***, and then compile.
+- Users can navigate to the directory that contains ***CMakeLists.txt*** and create a ***build*** directory.
+
+   ```bash
+cd xxxxxxxx     # cd <path to where you want to create build directory>
+	mkdir build
+	```
+	
+	> Caution: Users can create ***build*** directory in any location, and make sure that when compiling, the path provided to `cmake` is the path to where ***CMakeLists.txt*** is.
+	
+- Navigate to the ***build*** directory and then compile.
 
    - Compile for x86 hosts:
 
 		```bash
-		cd jy_sdk_ml
-		mkdir build
 		cd build
-		cmake .. -DBUILD_PLATFORM=x86
+		cmake .. -DBUILD_PLATFORM=x86     # cmake <path to where the CMakeLists.txt is>
 		make -j
 		```
+		
+	- Compile for ARM hosts:
 
-   - Compile for ARM hosts:
-
-		```bash
-		cd jy_sdk_ml
-		mkdir build
-		cd build
-		cmake .. -DBUILD_PLATFORM=arm
+   	```bash
+	cd build
+		cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
 		make -j
 		```
-
-- After compilation, an executable file named ***Lite_motion*** is generated in the folder ***build***.
+	
+- After compilation, an executable file named ***Lite_motion*** is generated in the ***build*** directory.
 
 - Enter the following codes in Terminal to run the program:
 
