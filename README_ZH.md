@@ -43,7 +43,7 @@
 - 编译开发时，开发者可进入解压得到的文件夹，在***CMakeLists.txt*** 的同级目录下新建 ***build*** 文件夹；
 
    ```bash
-cd xxxxxxxx     # cd <path to where you want to create build directory>
+   cd xxxxxxxx     # cd <path to where you want to create build directory>
 	mkdir build
 	```
 	
@@ -63,9 +63,9 @@ cd xxxxxxxx     # cd <path to where you want to create build directory>
 
    	```bash
 	cd build
-		cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
-		make -j
-		```
+	cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
+	make -j
+	```
 	
 - 编译结束后，会在 ***build*** 目录下生成一个名为 ***Lite_motion*** 的可执行文件，此即为我们代码编译出来的结果；
 

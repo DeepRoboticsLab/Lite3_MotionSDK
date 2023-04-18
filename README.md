@@ -45,9 +45,9 @@ Users can connect to the motion host remotely via SSH.
 - Users can navigate to the directory that contains ***CMakeLists.txt*** and create a ***build*** directory.
 
    ```bash
-cd xxxxxxxx     # cd <path to where you want to create build directory>
-	mkdir build
-	```
+   cd xxxxxxxx     # cd <path to where you want to create build directory>
+   mkdir build
+   ```
 	
 	> Caution: Users can create ***build*** directory in any location, and make sure that when compiling, the path provided to `cmake` is the path to where ***CMakeLists.txt*** is.
 	
@@ -64,10 +64,10 @@ cd xxxxxxxx     # cd <path to where you want to create build directory>
 	- Compile for ARM hosts:
 
    	```bash
-	cd build
-		cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
-		make -j
-		```
+   	cd build
+   	cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
+   	make -j
+   	```
 	
 - After compilation, an executable file named ***Lite_motion*** is generated in the ***build*** directory.
 
