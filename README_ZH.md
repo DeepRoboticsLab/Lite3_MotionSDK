@@ -61,11 +61,11 @@
 		
 	- 如果主机是ARM架构，在终端中输入：
 
-   	```bash
-	cd build
-	cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
-	make -j
-	```
+     ```bash
+	  cd build
+	  cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
+	  make -j
+	  ```
 	
 - 编译结束后，会在 ***build*** 目录下生成一个名为 ***Lite_motion*** 的可执行文件，此即为我们代码编译出来的结果；
 

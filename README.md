@@ -44,16 +44,16 @@ Users can connect to the motion host remotely via SSH.
 
 - Users can navigate to the directory that contains ***CMakeLists.txt*** and create a ***build*** directory.
 
-   ```bash
-   cd xxxxxxxx     # cd <path to where you want to create build directory>
-   mkdir build
-   ```
+	```bash
+	cd xxxxxxxx     # cd <path to where you want to create build directory>
+	mkdir build
+	```
 	
 	> Caution: Users can create ***build*** directory in any location, and make sure that when compiling, the path provided to `cmake` is the path to where ***CMakeLists.txt*** is.
 	
 - Navigate to the ***build*** directory and then compile.
 
-   - Compile for x86 hosts:
+	- Compile for x86 hosts:
 
 		```bash
 		cd build
@@ -63,19 +63,19 @@ Users can connect to the motion host remotely via SSH.
 		
 	- Compile for ARM hosts:
 
-   	```bash
-   	cd build
-   	cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
-   	make -j
-   	```
+		```bash
+		cd build
+		cmake .. -DBUILD_PLATFORM=arm     # cmake <path to where the CMakeLists.txt is>
+		make -j
+		```
 	
 - After compilation, an executable file named ***Lite_motion*** is generated in the ***build*** directory.
 
 - Enter the following codes in Terminal to run the program:
 
-   ```bash
-   ./Lite_motion
-   ```
+	```bash
+	./Lite_motion
+	```
 
 ### Example Code
 
@@ -83,7 +83,7 @@ This section explains ***main.cpp***.
 
 Timer, used to set the algorithm period and obtain the current time:
 
-   ```cpp
+	```cpp
 	DRTimer set_timer;
  	set_timer.TimeInit(int);                              		  ///< Timer initialization, input: cycle; unit: ms
  	set_timer.GetCurrentTime();                           		  ///< Obtain time for algorithm
