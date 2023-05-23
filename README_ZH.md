@@ -138,19 +138,19 @@ robot_data->imu.acc_z						  ///< Acceleration on Z-axis
 robot_data->imu.angle_pitch					  ///< Pitch angle
 robot_data->imu.angle_roll					  ///< Roll angle
 robot_data->imu.angle_yaw					  ///< Yaw angle
-robot_data->imu.angular_velocit_ptich			  	  ///< Pitch angular velocity
-robot_data->imu.angular_velocit_roll			  	  ///< Roll angular velocity
-robot_data->imu.angular_velocit_yaw		   	 	  ///< Yaw angular velocity
+robot_data->imu.angular_velocity_pitch			  	  ///< Pitch angular velocity
+robot_data->imu.angular_velocity_roll			  	  ///< Roll angular velocity
+robot_data->imu.angular_velocity_yaw		   	 	  ///< Yaw angular velocity
 robot_data->imu.buffer_byte					  ///< Buffer data
 robot_data->imu.buffer_float					  ///< Buffer data
 robot_data->imu.timestamp					  ///< Time when the data is obtained
 
 robot_data->joint_data						  ///< Motor status
-robot_data->joint_data.fl_leg[]->position		  	  ///< Motor position of left front leg
-robot_data->joint_data.fl_leg[]->temperature	  		  ///< Motor temperature of left front leg
-robot_data->joint_data.fl_leg[]->torque		 	  ///< Motor torque of left front leg 
-robot_data->joint_data.fl_leg[]->velocity		 	  ///< Motor velocity of left front leg
-robot_data->joint_data.joint_data[]              		  ///< All joint data
+robot_data->joint_data.fl_leg[].position		  	  ///< Motor position of left front leg
+robot_data->joint_data.fl_leg[].temperature	  		  ///< Motor temperature of left front leg
+robot_data->joint_data.fl_leg[].torque		 	  ///< Motor torque of left front leg 
+robot_data->joint_data.fl_leg[].velocity		 	  ///< Motor velocity of left front leg
+robot_data->joint_data.joint_data              		  ///< All joint data
 ```
 
 机器人关节控制指令：
