@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
       break;
     }
     //send_cmd->SendCmd(robot_joint_cmd);               
-    //cout << robot_joint_cmd.fr_leg[2].tor << endl;
+    //cout << robot_data->imu.acc_x << endl;
   }
   return 0;
 } 

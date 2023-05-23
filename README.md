@@ -2,6 +2,13 @@
 
 [简体中文](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/blob/main/README_ZH.md)
 
+### SDK Change Log
+#### V1.0 (2023-03-31) 
+First release.
+#### V1.1 (2023-05-16)
+- Add a callback function `RegisterCallBack` in ***received.h***. Currently, the callback function is only called upon each update of the robot data, with the instruction type being `0x0906` (`std::function<void(int)> CallBack_` , `int`=0x0906).
+- The data printed in ***main.cpp*** has been changed from the original joint torque to imu angular acceleration.
+
 ### SDK Download and Unzip
 
 - Download ***Lite3_MotionSDK*** and unzip.

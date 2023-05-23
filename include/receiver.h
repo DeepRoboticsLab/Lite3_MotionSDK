@@ -30,7 +30,15 @@ class Receiver {
     /// @brief Keep receiving data.
     void Work();
 
+    /// @brief CallBack_. 
+    /// @param int Instruction type, only 0x0906.
+    std::function<void(int)> CallBack_;
   public:
+
+    /// @brief Registering Callbacks.
+    void RegisterCallBack(std::function<void(int)> CallBack){
+      CallBack_ = std::move(CallBack);
+    }
     /// @brief Construct a new Receiver object.
     Receiver();
 

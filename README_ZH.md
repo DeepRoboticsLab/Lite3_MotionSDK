@@ -2,6 +2,13 @@
 
 [English](https://github.com/DeepRoboticsLab/Lite3_MotionSDK#readme)
 
+### SDK更新记录
+#### V1.0（2023-03-31） 
+首次发布。 
+#### V1.1（2023-05-16）
+**[新增]** ***received.h***中添加`RegisterCallBack`回调函数：目前仅支持在机器人数据每次更新时调用回调函数，对应的函数参数值，即`std::function<void(int)> CallBack_`中的`int`值为`0x0906`。  
+**[修改]** ***main.cpp***中打印的数据，由原先的关节力矩，改为陀螺仪角加速度。
+
 ### SDK下载及解压
 
 - 下载 **Lite3_MotionSDK**，并解压。
@@ -162,7 +169,10 @@ robot_joint_cmd.fl_leg[]->torque;				  ///< Torue of left front leg
 robot_joint_cmd.fl_leg[]->velocity;				  ///< Velocity of left front leg
 ```
 
-机器人站立的简单demo：1.将机器人腿收起来，为站立做准备；2.记录下当前时间与关节数据；3.机器人起立。
+机器人站立的简单demo：  
+1.将机器人腿收起来，为站立做准备；  
+2.记录下当前时间与关节数据；  
+3.机器人起立。
 
 ```cpp
 MotionExample robot_set_up_demo;                      		  ///< Demo for testing
