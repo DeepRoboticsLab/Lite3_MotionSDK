@@ -109,7 +109,8 @@ SDK接收机器人下发的关节数据：
 
 ```cpp
 Receiver* robot_data_recv = new Receiver();           		  ///< Create a thread for receiving and parsing
-robot_data_recv->GetState(); 			      		  ///< Receive data from 12 joints 
+robot_data_recv->GetState(); 			      		  ///< Receive data from 12 joints
+robot_data_recv->RegisterCallBack(CallBack);			    ///< Registering Callbacks
 ```
 
 SDK接收到的关节数据将保存在`robot_data`中：
@@ -121,35 +122,35 @@ RobotData *robot_data = &robot_data_recv->GetState(); 		  ///< Saving joint data
 ///< Left hind leg：hl_leg[3], the sequence is HL_HipX, HL_HipY, HL_Knee
 ///< Right hind leg：hr_leg[3], the sequence is HR_HipX, HR_HipY, HR_Knee
 ///< All joints：leg_force[12]/joint_data[12], the sequence is FL_HipX, FL_HipY, FL_Knee, FR_HipX, FR_HipY, FR_Knee, HL_HipX, HL_HipY, HL_Knee, HR_HipX, HR_HipY, HR_Knee
-
-robot_data->contact_force->fl_leg[]				  ///< Contact force on left front foot in X-axis, Y-axis and Z-axis
-robot_data->contact_force->fr_leg[]				  ///< Contact force on right front foot in X-axis, Y-axis and Z-axis
-robot_data->contact_force->hl_leg[]				  ///< Contact force on left hind foot in X-axis, Y-axis and Z-axis
-robot_data->contact_force->hr_leg[]				  ///< Contact force on right hind foot in X-axis, Y-axis and Z-axis
-robot_data->contact_force->leg_force[]			          ///< Contact force on all feet
-
+	
+robot_data->contact_force.fl_leg[]				  ///< Contact force on left front foot in X-axis, Y-axis and Z-axis
+robot_data->contact_force.fr_leg[]				  ///< Contact force on right front foot in X-axis, Y-axis and Z-axis
+robot_data->contact_force.hl_leg[]				  ///< Contact force on left hind foot in X-axis, Y-axis and Z-axis
+robot_data->contact_force.hr_leg[]				  ///< Contact force on right hind foot in X-axis, Y-axis and Z-axis
+robot_data->contact_force.leg_force[]			          ///< Contact force on all feet
+	
 robot_data->tick						  ///< Cycle of operation
-
+	
 robot_data->imu							  ///< IMU data	
-robot_data->imu->acc_x						  ///< Acceleration on X-axis
-robot_data->imu->acc_y						  ///< Acceleration on Y-axis
-robot_data->imu->acc_z						  ///< Acceleration on Z-axis
-robot_data->imu->angle_pitch					  ///< Pitch angle
-robot_data->imu->angle_roll					  ///< Roll angle
-robot_data->imu->angle_yaw					  ///< Yaw angle
-robot_data->imu->angular_velocit_ptich			  	  ///< Pitch angular velocity
-robot_data->imu->angular_velocit_roll			  	  ///< Roll angular velocity
-robot_data->imu->angular_velocit_yaw		   	 	  ///< Yaw angular velocity
-robot_data->imu->buffer_byte					  ///< Buffer data
-robot_data->imu->buffer_float					  ///< Buffer data
-robot_data->imu->timestamp					  ///< Time when the data is obtained
+robot_data->imu.acc_x						  ///< Acceleration on X-axis
+robot_data->imu.acc_y						  ///< Acceleration on Y-axis
+robot_data->imu.acc_z						  ///< Acceleration on Z-axis
+robot_data->imu.angle_pitch					  ///< Pitch angle
+robot_data->imu.angle_roll					  ///< Roll angle
+robot_data->imu.angle_yaw					  ///< Yaw angle
+robot_data->imu.angular_velocit_ptich			  	  ///< Pitch angular velocity
+robot_data->imu.angular_velocit_roll			  	  ///< Roll angular velocity
+robot_data->imu.angular_velocit_yaw		   	 	  ///< Yaw angular velocity
+robot_data->imu.buffer_byte					  ///< Buffer data
+robot_data->imu.buffer_float					  ///< Buffer data
+robot_data->imu.timestamp					  ///< Time when the data is obtained
 
 robot_data->joint_data						  ///< Motor status
-robot_data->joint_data->fl_leg[]->position		  	  ///< Motor position of left front leg
-robot_data->joint_data->fl_leg[]->temperature	  		  ///< Motor temperature of left front leg
-robot_data->joint_data->fl_leg[]->torque		 	  ///< Motor torque of left front leg 
-robot_data->joint_data->fl_leg[]->velocity		 	  ///< Motor velocity of left front leg
-robot_data->joint_data->joint_data[]              		  ///< All joint data
+robot_data->joint_data.fl_leg[]->position		  	  ///< Motor position of left front leg
+robot_data->joint_data.fl_leg[]->temperature	  		  ///< Motor temperature of left front leg
+robot_data->joint_data.fl_leg[]->torque		 	  ///< Motor torque of left front leg 
+robot_data->joint_data.fl_leg[]->velocity		 	  ///< Motor velocity of left front leg
+robot_data->joint_data.joint_data[]              		  ///< All joint data
 ```
 
 机器人关节控制指令：
