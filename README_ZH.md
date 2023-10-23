@@ -272,38 +272,24 @@ SDK采用UDP与机器狗进行通讯。
 **答：**
 
 提供goal_pos,goal_vel,kp,kd,t_ff，共5个关节控制参数接口，控制接口全为低速端，也就是**关节端**，最终关节目标力为
-$$
-T=kp*(pos_{goal} - pos_{real})+kd*(vel_{goal} - vel_{real})+t_{ff}
-$$
+$$T=kp*(pos_{goal} - pos_{real})+kd*(vel_{goal} - vel_{real})+t_{ff}$$
 
 驱动器端会将最终的关节目标力转化成期望电流，并以20KHz的频率进行闭环控制。
 
 **使用举例：**
 
 当做纯位控即位置控制时，电机的输出轴将会稳定在一个固定的位置。例如，如果我们希望电机输出端固定在3.14弧度的位置，下发数据格式示例：
-$$
-pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=0, t_{ff} = 0；
-$$
+$$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=0, t_{ff} = 0$$
 当做速度控制时，下发数据格式示例：
-$$
-pos_{goal}=0, vel_{goal}=5, kp=0, kd=1, t_{ff} = 0；
-$$
+$$pos_{goal}=0, vel_{goal}=5, kp=0, kd=1, t_{ff} = 0$$
 当做阻尼控制时，下发数据格式示例
-$$
-pos_{goal}=0, vel_{goal}=0, kp=0, kd=1, t_{ff} = 0；
-$$
+$$pos_{goal}=0, vel_{goal}=0, kp=0, kd=1, t_{ff} = 0$$
 当做力矩控制时，下发数据格式示例
-$$
-pos_{goal}=0, vel_{goal}=0, kp=0, kd=0, t_{ff} = 3；
-$$
+$$pos_{goal}=0, vel_{goal}=0, kp=0, kd=0, t_{ff} = 3$$
 当做零力矩控制时，下发数据格式示例
-$$
-pos_{goal}=0, vel_{goal}=0, kp=0, kd=0, t_{ff} = 0；
-$$
+$$pos_{goal}=0, vel_{goal}=0, kp=0, kd=0, t_{ff} = 0$$
 当做混合控制时，下发数据格式示例：
-$$
-pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1；
-$$
+$$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 
 
@@ -315,7 +301,7 @@ $$
 
 当SDK有指令下发时，底层控制器会优先执行SDK的控制指令，并把指令分发给机器狗12个关节。当SDK没有指令下发时，经过1s的超时判断后，底层控制器会拿回控制权，进入阻尼保护模式一段时间后，清空关节指令。控制流程图可以参考下图：
 
-![image-20231023110612378](C:\Users\ysc16\AppData\Roaming\Typora\typora-user-images\image-20231023110612378.png)
+![image-20231023110612378](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/MotionControlFlow.png)
 
 
 
