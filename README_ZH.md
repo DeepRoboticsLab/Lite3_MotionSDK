@@ -300,9 +300,7 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 **答：**
 
 当SDK有指令下发时，底层控制器会优先执行SDK的控制指令，并把指令分发给机器狗12个关节。当SDK没有指令下发时，经过1s的超时判断后，底层控制器会拿回控制权，进入阻尼保护模式一段时间后，清空关节指令。控制流程图可以参考下图：
-
-![image-20231023110612378](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/MotionControlFlow.png)
-
+![](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/blob/main/MotionControlFlow.png?raw=true)
 
 
 ### 其他注意事项
