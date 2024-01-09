@@ -18,6 +18,18 @@
 
 using namespace std;
 
+  bool is_message_updated_ = false; ///< Flag to check if message has been updated
+  /**
+   * @brief Callback function to set message update flag
+   * 
+   * @param code The code indicating the type of message received
+   */
+  void OnMessageUpdate(uint32_t code){
+    if(code == 0x0906){
+      is_message_updated_ = true;
+    }
+  }
+
 int main(int argc, char* argv[]){
   DRTimer set_timer;
   double now_time,start_time;
@@ -26,7 +38,7 @@ int main(int argc, char* argv[]){
 
   Sender* send_cmd          = new Sender("192.168.1.120",43893);              ///< Create send thread
   Receiver* robot_data_recv = new Receiver();                                 ///< Create a receive resolution
-
+  robot_data_recv->RegisterCallBack(OnMessageUpdate);
   MotionExample robot_set_up_demo;                                            ///< Demos for testing can be deleted by yourself
   RobotData *robot_data = &robot_data_recv->GetState();
 
@@ -57,7 +69,9 @@ int main(int argc, char* argv[]){
       send_cmd->ControlGet(ROBOT);                                            ///< Return the control right, input: ROBOT: Original algorithm control of the robot .  SDK: SDK control PS: over 50ms, no data set sent_ Send (cmd), you will lose control, you need to resend to obtain control
       break;
     }
-    //send_cmd->SendCmd(robot_joint_cmd);               
+    if(is_message_updated_){
+      // send_cmd->SendCmd(robot_joint_cmd);  
+    }               
     //cout << robot_data->imu.acc_x << endl;
   }
   return 0;
