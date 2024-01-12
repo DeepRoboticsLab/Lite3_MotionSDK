@@ -1,6 +1,6 @@
 # Jueying Lite3 Motion SDK
 
-[简体中文](https://github.com/DeepRoboticsLab/Lite3_MotionSDK/blob/main/README_ZH.md)
+[简体中文](./README_ZH.md)
 
 ### SDK Change Log
 #### V1.0 (2023-03-31) 
