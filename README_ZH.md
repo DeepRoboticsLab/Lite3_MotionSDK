@@ -120,7 +120,7 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 <img src="./img/demoFlow.png"/>
 
-**但为了确保SDK的安全使用，在*main.cpp*的原始代码中，第73行的下发指令代码是被注释掉的，因此机器狗默认只会调整到准备起立姿势但不会起立：**
+**但为了确保SDK的安全使用，在*main.cpp*的原始代码中，第73行的下发指令代码是被注释掉的，因此机器狗默认只会回零但不会起立：**
 
 ```c++
 //send_cmd->SendCmd(robot_joint_cmd);
@@ -329,7 +329,7 @@ robot_joint_cmd.fl_leg[]->velocity;				  ///< Velocity of left front leg
 
 机器人站立的简单demo：  
 
-1. 将机器人腿收起来，为站立做准备；  
+1. 将机器人腿收起来（回零），为站立做准备；  
 
 2. 记录下当前时间与关节数据；  
 
