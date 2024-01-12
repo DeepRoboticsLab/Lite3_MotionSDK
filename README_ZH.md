@@ -102,8 +102,8 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 		vim name.toml
 		```
 	- 配置文件***name.toml***内容如下：
-		```toml
-		name = standard_{1}
+		```Bash
+		name = standard_1
 		```
 	- 将name值配置为standard_2。
 
