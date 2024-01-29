@@ -140,7 +140,7 @@ The developer can remotely connect to the motion host via ssh to configure the d
 		vim name.toml
 		```
 	- The config file ***name.toml*** has the following contents：
-		```toml
+		```bash
 		name = standard_1
 		```
 	- Replace the current value of `name` with `standard_2`.
