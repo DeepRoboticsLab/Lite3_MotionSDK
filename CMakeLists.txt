@@ -1,14 +1,9 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.10)
 
-project(Lite_motion)
-SET(BUILD_PLATFORM "x86" CACHE STRING "select build cpu type")
-if (BUILD_PLATFORM STREQUAL arm)
-  message("this is arm platform")
-  SET(CMAKE_C_COMPILER "aarch64-linux-gnu-gcc")
-  SET(CMAKE_CXX_COMPILER "aarch64-linux-gnu-g++") 
-else()
-  message("this is x86 platform")
-endif()
+set(ROBOT_NAME "lite3")
+project(${ROBOT_NAME}_motion_sdk)
+
+message("CMAKE_SYSTEM_PROCESSOR: ${CMAKE_SYSTEM_PROCESSOR}")
 
 set(CMAKE_BUILD_TYPE Release)
 set(SRC_DIR_LIST "." src)
@@ -24,24 +19,14 @@ endforeach(VAR)
 include_directories(
   ./include/
   ./include/common/
-  ./lib/eigen3
+  # ./lib/eigen3
 )
 
 link_directories(
   ./lib/
 )
 
-add_executable(${PROJECT_NAME} "main.cpp"${SRC_LIST})
-# 链接动态库target_link_libraries(myprogram /path/to/lib/libfoo.so)
-
-
- # 外部用cmake . -DBUILD_PLATFORM=arm进行值传入，便可以执行不同的逻辑
-if (BUILD_PLATFORM STREQUAL arm)
-  target_link_libraries(${PROJECT_NAME} libdeeprobotics_legged_sdk_aarch64.so)
-else()
-  target_link_libraries(${PROJECT_NAME} libdeeprobotics_legged_sdk_x86_64.so)
-endif()
-
-target_link_libraries(${PROJECT_NAME} -lpthread -lm -lrt -ldl -lstdc++)
+add_executable(deeprobotics_${ROBOT_NAME}_motion_sdk_${CMAKE_SYSTEM_PROCESSOR} "main.cpp" ${SRC_LIST})
+target_link_libraries(deeprobotics_${ROBOT_NAME}_motion_sdk_${CMAKE_SYSTEM_PROCESSOR} -lpthread -lm -lrt -ldl -lstdc++)
 
 

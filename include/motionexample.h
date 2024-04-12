@@ -2,11 +2,8 @@
 #include "robot_types.h"
 #include <time.h>
 #include <string.h>
-#include "Eigen/Dense"
+// #include "Eigen/Dense"
 using namespace std;
-using namespace Eigen;
-
-typedef Matrix< double, 3, 1> Vec3;
 
 const double kDegree2Radian = 3.1415926 / 180;
 
@@ -35,7 +32,7 @@ class MotionExample{
     /// @param side Control which leg, FL is the left front leg, FR is the right front leg, HL is the left and right leg, and HR is the right rear leg
     /// @param cmd Issue control command
     /// @param data Real-time status data of robot
-    void SwingToAngle(Vec3 initial_angle, Vec3 final_angle, double total_time, double run_time, double cycle_time, string side, RobotCmd &cmd,  RobotData &data);
+    void SwingToAngle(double initial_angle[3], double final_angle[3], double total_time, double run_time, double cycle_time, string side, RobotCmd &cmd,  RobotData &data);
 
     /// @brief Interpolation to find the path point, i.e. the target angle for each control cycle
     /// @param init_position 
@@ -47,8 +44,8 @@ class MotionExample{
     /// @param total_time 
     /// @param sub_goal_position Target angle for the control cycle
     /// @param sub_goal_position_next Target angle for the next control cycle
-    /// @param sub_goal_position_next2 Target angle for the next and next control cycle
-    void CubicSpline(double init_position, double init_velocity, double goal_position, double goal_velocity, double run_time, double cycle_time, double total_time, double &sub_goal_position, double &sub_goal_position_next, double &sub_goal_position_next2);
+    void CubicSpline(double init_position, double init_velocity, double goal_position, double goal_velocity, 
+        double run_time, double cycle_time, double total_time, double &sub_goal_position, double &sub_goal_position_next);
     
     /// @brief Only the current moment and angle are recorded
     /// @param data Current joint data
