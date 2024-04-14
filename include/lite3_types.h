@@ -47,12 +47,12 @@ typedef struct {
 /// @brief Struct containing data related to a robot.
 typedef struct {
   union {
-    JointData joint_data[12]; // Joint data for all 12 motors.
+    std::array<JointData, 12> joint_data; // Joint data for all 12 motors.
     struct {
-      JointData fl_leg[3]; // Joint data for the front left leg motors.
-      JointData fr_leg[3]; // Joint data for the front right leg motors.
-      JointData hl_leg[3]; // Joint data for the hind left leg motors.
-      JointData hr_leg[3]; // Joint data for the hind right leg motors.
+      std::array<JointData, 3> fl_leg; // Joint data for the front left leg motors.
+      std::array<JointData, 3> fr_leg; // Joint data for the front right leg motors.
+      std::array<JointData, 3> hl_leg; // Joint data for the hind left leg motors.
+      std::array<JointData, 3> hr_leg; // Joint data for the hind right leg motors.
     };
   };
 } LegData;
@@ -69,12 +69,12 @@ typedef struct {
 /// @brief Struct containing command data for a robot.
 typedef struct {
   union {
-    JointCmd joint_cmd[12];  // Joint commands for all 12 joints.
+    std::array<JointCmd, 12> joint_cmd;  // Joint commands for all 12 joints.
     struct {
-      JointCmd fl_leg[3];   // Joint commands for the front left leg joints.
-      JointCmd fr_leg[3];   // Joint commands for the front right leg joints.
-      JointCmd hl_leg[3];   // Joint commands for the hind left leg joints.
-      JointCmd hr_leg[3];   // Joint commands for the hind right leg joints.
+      std::array<JointCmd, 3> fl_leg; // Joint commands for the front left leg joints.
+      std::array<JointCmd, 3> fr_leg; // Joint commands for the front right leg joints.
+      std::array<JointCmd, 3> hl_leg; // Joint commands for the hind left leg joints.
+      std::array<JointCmd, 3> hr_leg; // Joint commands for the hind left leg joints.
     };
   };
 } RobotCmd;
@@ -87,12 +87,12 @@ typedef struct {
 /// @note In most cases, only the z-direction force is used.
 typedef struct {
   union {
-    double leg_force[12]; // Array of leg forces for all 12 motors.
+    std::array<double, 12> leg_force; // Array of leg forces for all 12 motors.
     struct {
-      double fl_leg[3]; // Forces for the front left leg motors (in x, y, and z direction).
-      double fr_leg[3]; // Forces for the front right leg motors (in x, y, and z direction).
-      double hl_leg[3]; // Forces for the hind left leg motors (in x, y, and z direction).
-      double hr_leg[3]; // Forces for the hind right leg motors (in x, y, and z direction).
+      std::array<double, 3> fl_leg; // Forces for the front left leg motors (in x, y, and z direction).
+      std::array<double, 3> fr_leg; // Forces for the front right leg motors (in x, y, and z direction).
+      std::array<double, 3> hl_leg; // Forces for the hind left leg motors (in x, y, and z direction).
+      std::array<double, 3> hr_leg; // Forces for the hind right leg motors (in x, y, and z direction).
     };
   };
 } ContactForce;
