@@ -19,8 +19,13 @@
 #include <sys/timerfd.h>
 #include <sys/epoll.h>
 
-#include "robot_types.h"
-#include "udpserver.hpp"
+#include "lite3_types.h"
+#include "common/udpserver.hpp"
+
+#define LOCAL_PORT 43897
+#define ROBOT_STATE_CMD 0x0906
+
+namespace lite3{
 
 /// @brief This class is used for receiving data from the robot.
 class Receiver {
@@ -40,7 +45,7 @@ class Receiver {
       CallBack_ = std::move(CallBack);
     }
     /// @brief Construct a new Receiver object.
-    Receiver();
+    Receiver(int port=LOCAL_PORT);
 
     /// @brief Start the receiving process.
     void StartWork();
@@ -51,8 +56,10 @@ class Receiver {
     /// @brief Get the received robot state data.
     /// @return RobotData& The reference of the received robot state data.
     RobotData& GetState();
+
+    int local_port;
 };
 
-
+};//namespace lite3
 
 #endif  ///< RECEIVER_H_

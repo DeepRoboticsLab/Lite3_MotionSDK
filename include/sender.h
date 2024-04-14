@@ -12,12 +12,14 @@
 #include <iostream>
 #include <stdint.h>
 #include <array>
-#include "command.h"
-#include "udpsocket.hpp"
-#include "robot_types.h"
+#include "common/command.h"
+#include "common/udpsocket.hpp"
+#include "lite3_types.h"
 
 #define SDK 2
 #define ROBOT 1
+
+namespace lite3{
 /// @class Sender
 /// @brief Class for sending RobotCmd through UDP socket.
 class Sender {
@@ -62,6 +64,6 @@ class Sender {
     void SetCmd(uint32_t code, uint32_t value);
 };
 
-
+};//namespace lite3
 
 #endif  ///< PARSE_CMD_H_

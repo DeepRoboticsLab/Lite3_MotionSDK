@@ -17,6 +17,7 @@
 #define FDR_UNUSED(expr){ (void)(expr); } 
 #define FDR_ON_ERROR std::function<void(int, std::string)> onError = [](int errorCode, std::string errorMessage){FDR_UNUSED(errorCode); FDR_UNUSED(errorMessage)}
 
+namespace lite3{
 class BaseSocket
 {
   ///< Definitions
@@ -64,4 +65,5 @@ class BaseSocket
     std::string RemoteAddress() {return IpToString(this->address);}
     int RemotePort() {return ntohs(this->address.sin_port);}
     int FileDescriptor() const { return this->sock; }
+};
 };

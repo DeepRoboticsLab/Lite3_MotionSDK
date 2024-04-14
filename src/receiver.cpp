@@ -10,12 +10,13 @@
  */
 
 #include "receiver.h"
-#include "command.h"
-#define LOCAL_PORT 43897
-#define ROBOT_STATE_CMD 0x0906
-using namespace std;
+#include "common/command.h"
 
-Receiver::Receiver(){
+using namespace std;
+using namespace lite3;
+
+Receiver::Receiver(int port){
+  local_port = port;
   StartWork();
 }
 
@@ -47,7 +48,7 @@ void Receiver::Work()
     }
   };
     // Bind the server to a port.
-    udpServer.Bind(LOCAL_PORT, [](int errorCode, string errorMessage) {
+    udpServer.Bind(local_port, [](int errorCode, string errorMessage) {
     // BINDING FAILED:
     cout << errorCode << " : " << errorMessage << endl;
   });

@@ -1,9 +1,9 @@
 #include "receiver.h"
-#include "robot_types.h"
 #include <time.h>
 #include <string.h>
 // #include "Eigen/Dense"
 using namespace std;
+using namespace lite3;
 
 const double kDegree2Radian = 3.1415926 / 180;
 

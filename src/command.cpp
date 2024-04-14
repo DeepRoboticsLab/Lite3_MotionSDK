@@ -9,8 +9,9 @@
  * 
  */
 
-#include "command.h"
+#include "common/command.h"
 
+using namespace lite3;
 
 Command::Command() {
   command_code_ = 0;

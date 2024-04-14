@@ -3,7 +3,7 @@
 #include "basesocket.hpp"
 #include <string.h>
 #include <thread>
-
+namespace lite3{
 class UDPSocket : public BaseSocket
 {
   public:
@@ -155,4 +155,6 @@ class UDPSocket : public BaseSocket
         }
     }
     }
+};
+
 };

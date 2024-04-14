@@ -11,7 +11,7 @@
 
 #include "sender.h"
 using namespace std;
-
+using namespace lite3;
 Sender::Sender(){
   const string IP = "192.168.1.120";
   const uint16_t PORT = 43897;

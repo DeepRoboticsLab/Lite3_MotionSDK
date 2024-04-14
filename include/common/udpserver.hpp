@@ -3,6 +3,7 @@
 #include "udpsocket.hpp"
 #include <thread>
 
+namespace lite3{
 class UDPServer : public UDPSocket
 {
   public:
@@ -32,4 +33,5 @@ class UDPServer : public UDPSocket
       return;
     }
   }
+};
 };

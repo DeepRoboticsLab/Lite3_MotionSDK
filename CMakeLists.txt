@@ -18,8 +18,6 @@ endforeach(VAR)
 
 include_directories(
   ./include/
-  ./include/common/
-  # ./lib/eigen3
 )
 
 link_directories(

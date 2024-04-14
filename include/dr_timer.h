@@ -15,7 +15,7 @@
 #include <chrono>
 #include <sys/timerfd.h>
 #include <sys/epoll.h>
-
+namespace lite3{
 /// @brief The DRTimer class provides timer functionality with millisecond precision.
 class DRTimer {
   private:
@@ -43,6 +43,6 @@ class DRTimer {
     double GetCurrentTime(void);
 };
 
-
+};//namespace lite3
 
 #endif  ///< PARSE_CMD_H_

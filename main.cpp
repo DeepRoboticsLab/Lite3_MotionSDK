@@ -6,8 +6,8 @@
 /// @copyright Copyright (c) 2022
 
 
-#include "udpsocket.hpp"
-#include "udpserver.hpp"
+#include "common/udpsocket.hpp"
+#include "common/udpserver.hpp"
 #include "sender.h"
 #include "dr_timer.h"
 #include "receiver.h"

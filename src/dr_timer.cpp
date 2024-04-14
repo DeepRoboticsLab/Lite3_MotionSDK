@@ -11,6 +11,7 @@
 #include "dr_timer.h"
 
 using namespace std;
+using namespace lite3;
 
 void DRTimer::TimeInit(int ms){
   if(ms >= 1000){

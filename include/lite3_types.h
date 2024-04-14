@@ -1,4 +1,4 @@
-/// @file robot_types.h
+/// @file lite3_types.h
 /// @author vcb (www.deeprobotics.cn)
 /// @brief 
 /// @version 0.1
@@ -7,12 +7,13 @@
  
 
 
-#ifndef ROBOT_TYPES_H_
-#define ROBOT_TYPES_H_
+#ifndef LITE3_TYPES_H_
+#define LITE3_TYPES_H_
 
 #include <stdint.h>
 #include <array>
 
+namespace lite3{
 /// @brief A struct used to store the data collected from an IMU sensor.
 struct ImuData {
   int32_t timestamp; // Timestamp of the data in milliseconds.
@@ -20,13 +21,13 @@ struct ImuData {
     float buffer_float[9]; // An array containing 9 float elements.
     uint8_t buffer_byte[3][12]; // A 2D array with 3 rows and 12 columns of uint8_t elements used to store raw data.
     struct {
-      float angle_roll; // Roll angle (unit: degrees).
-      float angle_pitch; // Pitch angle (unit: degrees).
-      float angle_yaw; // Yaw angle (unit: degrees).
+      float roll; // Roll angle (unit: degrees).
+      float pitch; // Pitch angle (unit: degrees).
+      float yaw; // Yaw angle (unit: degrees).
 
-      float angular_velocity_roll; // Roll angular velocity (unit: degrees/second).
-      float angular_velocity_pitch; // Pitch angular velocity (unit: degrees/second).
-      float angular_velocity_yaw; // Yaw angular velocity (unit: degrees/second).
+      float omega_x; // x-axis angular velocity (unit: degrees/second).
+      float omega_y; // y-axis angular velocity (unit: degrees/second).
+      float omega_z; // z-axis angular velocity (unit: degrees/second).
 
       float acc_x; // X-axis acceleration (unit: m/s^2).
       float acc_y; // Y-axis acceleration (unit: m/s^2).
@@ -108,4 +109,6 @@ typedef struct{
   ContactForce contact_force; // Contact force data for the robot.
 }RobotData;
 
-#endif  ///< ROBOT_TYPES_H_
+}
+
+#endif  ///< LITE3_TYPES_H_
