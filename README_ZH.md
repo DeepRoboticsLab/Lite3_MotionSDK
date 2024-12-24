@@ -5,7 +5,7 @@
 <img src="./img/testFlow.png"/>
 
 ## 目录
-[1 SDK更新记录](#1-sdk更新记录)   
+[1 SDK更新记录](#1-SDK更新记录)   
 [2 SDK简介](#2-sdk简介)   
 [3 SDK下载及解压](#3-sdk下载及解压)   
 [4 确定运动主机地址用户名和密码](#4-确定运动主机地址用户名和密码)   
@@ -14,7 +14,8 @@
 [7 编译开发](#7-编译开发)  
 [7.1 检查通讯](#71-检查通讯)  
 [7.2 通讯问题排查](#72-通讯问题排查)  
-[7.3 编译开发](#73-编译开发)  
+[7.3 编译环境检查](#73-编译环境检查)  
+[7.4 编译开发](#74-编译开发)  
 [8 示例代码](#8-示例代码)  
 [其他注意事项](#其他注意事项)  
 
@@ -26,6 +27,8 @@
 ### V1.1（2023-05-16）
 **[新增]** ***received.h***中添加`RegisterCallBack`回调函数：目前仅支持在机器人数据每次更新时调用回调函数，对应的函数参数值，即`std::function<void(int)> CallBack_`中的`int`值为`0x0906`。  
 **[修改]** ***main.cpp***中打印的数据，由原先的关节力矩，改为陀螺仪角加速度。
+### V1.2（2024-12-24）
+**[新增]** 添加***add_python***分支，支持使用Python进行编译开发。
 
 &nbsp;
 ## 2 SDK简介
@@ -60,7 +63,9 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 &nbsp;
 ## 3 SDK下载及解压
 
-- 下载 **Lite3_MotionSDK**，并解压。
+- 下载 **Lite3_MotionSDK-main**，并解压。(CPP版本)
+- 下载 **Lite3_MotionSDK-add_python**，并解压。(Python版本)
+
 
 
 &nbsp;
@@ -108,7 +113,6 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 	ip = '192.168.1.102'        # Motion host will send data to this IP address
 	target_port = 43897
 	local_port = 43893
-	~
 	```
 - 修改配置文件第一行中的IP地址，使得 **MotionSDK** 能够接收到机器狗数据:
 	- 如果 **MotionSDK** 在机器人运动主机内运行，IP设置为运动主机IP：`192.168.1.120`；  
@@ -143,10 +147,16 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 &nbsp;
 ## 6 配置sdk数据下发地址
-***main.cpp***中第39行代码创建了一个sdk向机器狗运动主机下发控制指令的发送线程：
-```c++
-Sender* send_cmd = new Sender("192.168.1.120",43893); ///< Create send thread
-```
+-	C++版本：***main.cpp***中第39行代码创建了一个sdk向机器狗运动主机下发控制指令的发送线程：
+	```c++
+	Sender* send_cmd = new Sender("192.168.1.120",43893); ///< Create send thread
+	```
+
+-	Python版本：***/Lite3_MotionSDK-add_python/python/example.py***中第27行代码创建了一个sdk向机器狗运动主机下发控制指令的发送线程：
+	```python
+	sender = dr.Sender('192.168.1.120', 43893)
+	```
+	
 请根据第4节中确定的运动主机地址修改`Sender()`中的目标IP。
 
 &nbsp;
@@ -236,10 +246,34 @@ MotionSDK采用UDP与机器狗进行通讯。
  sudo ./stop.sh
  sudo ./restart.sh
 ```
-### 7.3 编译开发
 
-确保SDK与机器狗正常通讯，并确保自己的下发控制指令正确后，可以将***main.cpp***原始代码中第73行的下发指令代码`send_cmd->SendCmd(robot_joint_cmd)`取消注释，然后重新编译运行:
+### 7.3 编译环境检查
 
+在使用Python版本进行编译前，需要检查环境是否包含编译所需的包。参照以下步骤进行检查：
+```bash
+python3           # 进入Python环境
+help("modules")   # 检查Python环境包含的包
+```
+
+若Python环境不包含编译所需的包，则需要将机器狗连接至公网，参照以下步骤进行：
+```bash
+sudo nmcli dev wifi   #列出机器狗检索到的WiFi
+sudo nmcli dev wifi connect "Your WiFi name" password "Your WiFi password" ifname wlan0   #将机器狗连接至公网，需要将引号中的Your WiFi name与Your WiFi password改为WiFi的名称与密码
+```
+
+将机器狗成功连接至公网后，使用***apt***与***pip***安装所需的包，参照以下步骤进行:
+```bash
+sudo apt-get install pip3    #使用apt-get下载安装pip3包
+pip3 install numpy           #使用pip3下载安装numpy
+```
+
+Python包含编译所需的包后，则可进行下一步的编译开发。
+
+### 7.4 编译开发
+
+确保SDK与机器狗正常通讯，并确保自己的下发控制指令正确后，可以将 ***main.cpp***原始代码中第73行的下发指令代码`send_cmd->SendCmd(robot_joint_cmd)`取消注释，然后重新编译运行:
+
+#### 7.4.1 C++版本编译运行
 - 删除之前生成的构建文件夹***build***：
 
 - 打开一个新的终端，新建一个空的 ***build*** 文件夹；
@@ -271,6 +305,34 @@ MotionSDK采用UDP与机器狗进行通讯。
 
 	```bash
 	./Lite_motion
+	```
+
+#### 7.4.2 Python版本编译运行
+
+- 删除之前生成的构建文件夹***build***：
+
+- 打开一个新的终端，新建一个空的 ***build*** 文件夹；
+
+	```bash
+	cd xxxxxxxx     # cd <path to where you want to create build directory>
+	mkdir build
+	```
+	
+- 打开 ***build*** 文件夹并编译；
+
+   在终端中输入：
+
+		```bash
+		cd build
+		cmake .. -DBUILD_PYTHON=ON     
+		make -j
+		```
+	
+- 正常情况下编译好的动态库文件会自动复制到 `/python/lib` 目录下，随后可以进入 `/Lite3_MotionSDK-add_python/python` 目录直接执行 ***example.py*** 文件：
+
+	```bash
+	cd python/
+	python3 example.py
 	```
 > 注意：用户在使用Lite3执行算法和实验的过程中，请与机器狗保持至少5米距离，并将机器狗悬挂在调试架上避免意外造成人员和设备损伤。若实验过程中，机器狗摔倒或者用户想搬动机器狗位置，需要靠近机器狗时，用户应当使得机器狗处于急停状态或者使用 `sudo ./stop.sh` 命令关闭运动程序。
 &nbsp;

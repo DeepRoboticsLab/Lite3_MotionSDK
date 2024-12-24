@@ -15,7 +15,8 @@
 [7 Compile and Run](#7-compile-and-run)  
 [7.1 Check the Communication](#71-check-the-communication)  
 [7.2 Communication Troubleshooting](#72-communication-troubleshooting)  
-[7.3 Compile and Develop](#73-compile-and-develop)  
+[7.3 Check the Compilation Environment](#73-check-the-compilation-environment)  
+[7.4 Compile and Develop](#74-compile-and-develop)  
 [8 Example Code](#8-example-code)  
 [Other Precautions](#other-precautions)  
 
@@ -39,6 +40,8 @@ First release.
 		// send_cmd->SendCmd(robot_joint_cmd);  
 	}   
 	```
+### V1.3 (2024-12-24)
+- Add ***add_python*** branch, support compilation and development using Python.
 ## 2 SDK Introduction
 **MotionSDK** provides five control parameters to control the motion of joints: $pos_{goal}$, $vel_{goal}$, $kp$, $kd$, $t_{ff}$.
 
@@ -69,8 +72,8 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 &nbsp;
 ## 3 SDK Download and Unzip
 
-- Download ***Lite3_MotionSDK*** and unzip.
-
+- Download ***Lite3_MotionSDK-main*** and unzip.(C++)
+- Download ***Lite3_MotionSDK-add_python*** and unzip.(Python)
 
 &nbsp;
 ## 4 Identify the Motion Host Address, Username and Code
@@ -154,16 +157,22 @@ The developer can remotely connect to the motion host via ssh to configure the d
 
 &nbsp;
 ## 6 Configure MotionSDK
-Line 39 of the code in ***main.cpp*** creates a send thread for SDK to send joint control commands to the robot motion host:
-```c++
-Sender* send_cmd = new Sender("192.168.1.120",43893); ///< Create send thread
-```
+-	C++:Line 39 of the code in ***main.cpp*** creates a send thread for SDK to send joint control commands to the robot motion host:
+	```c++
+	Sender* send_cmd = new Sender("192.168.1.120",43893); ///< Create send thread
+	```
+
+-	Python:Line 20 of the code in ***/Lite3_MotionSDK-add_python/python/example.py*** creates a send thread for SDK to send joint control commands to the robot motion host:
+	```python
+	sender = dr.Sender('192.168.1.120', 43893)
+	```
+
 Please modify the destination IP address in `Sender()` according to the motion host address determined in Chapter 4.
 
 &nbsp;
 ## 7 Compile and Run
 
-***main.cpp*** provides a simple demo of standing up, and after standing for a while, it returns control right to the underlying controller, and the robot automatically enters damping protection mode.
+***main.cpp*** & ***example.py***provides a simple demo of standing up, and after standing for a while, it returns control right to the underlying controller, and the robot automatically enters damping protection mode.
 
 <img src="./img/demoFlowEN.png"/>
 
@@ -252,10 +261,34 @@ Wait for 2 minutes after entering the packet capture command, and observe whethe
  sudo ./stop.sh
  sudo ./restart.sh
 ```
-### 7.3 Compile and Develop
+
+### 7.3 Check the Compilation Environment
+
+Before compiling with the Python version, you need to check that the environment contains the packages required for compilation. Check by following these steps:
+```bash
+python3           # Enter the Python environment
+help("modules")   # Check the packages contained in the Python environment
+```
+
+If the Python environment does not contain the packages required for compilation, and the routine needs to run in the robot dog, you need to connect the robot dog to the public network, as follows:
+```bash
+sudo nmcli dev wifi   # List the WiFi that the robot searched
+sudo nmcli dev wifi connect "Your WiFi name" password "Your WiFi password" ifname wlan0   # To connect the robot to the public network, you need to change the quotation marks of "Your WiFi name" and "Your WiFi password" to the name and password of WiFi
+```
+
+After successfully connecting the development device to the public network, use ***apt*** and ***pip*** to install the required packages, following the steps below:
+```bash
+sudo apt-get install pip3    # Download and install the pip3 package using apt-get
+pip3 install numpy           # Download and install the numpy package using pip3
+```
+
+After Python includes the necessary packages for compilation, the next step of compilation and development can be carried out.
+
+### 7.4 Compile and Develop
 
 After making sure that the SDK is communicating properly with the robot, and that your control commands are correct, you can uncomment the code `send_cmd->SendCmd(robot_joint_cmd)` in line 73 in ***main.cpp***, recompile and run it again:
 
+#### 7.4.1 C++
 - Delete the previously generated ***build*** directory:
 
 - Open a new terminal and create an empty ***build*** directory;
@@ -264,7 +297,7 @@ After making sure that the SDK is communicating properly with the robot, and tha
 	mkdir build
 	```
 
-- Navigate to the ***build*** directory and then compile；
+- Navigate to the ***build*** directory and then compile;
 
 	- Compile for x86 hosts:
 
@@ -286,6 +319,31 @@ After making sure that the SDK is communicating properly with the robot, and tha
 
 	```bash
 	./Lite_motion
+	```
+
+#### 7.4.2 Python
+- Delete the previously generated ***build*** directory:
+
+- Open a new terminal and create an empty ***build*** directory;
+
+	```bash
+	cd xxxxxxxx     # cd <path to where you want to create build directory>
+	mkdir build
+	```
+	
+- Navigate to the ***build*** directory and then compile;
+
+	```bash
+	cd build
+	cmake .. -DBUILD_PYTHON=ON     
+	make -j
+	```
+	
+- Normally, the compiled dynamic library files will be automatically copied to the `/python/lib` directory. Then you can navigate to the `/Lite3_MotionSDK-add_python/python` directory and directly execute ***example.py***:
+
+	```bash
+	cd python/
+	python3 example.py
 	```
 > Caution: When using Jueying Lite3 to test your motion control algorithms or do experiments, all present personnel should keep at least 5 meters away from the robot and the robot should be hung on the robot hoisting device, to avoid accidental damage to personnel and equipment.  If the user needs to approach the robot during experiment, the user must ensure that either the robot is put into an emergency stop state or the motion program is shut down using the `sudo ./stop.sh` command.
 
