@@ -275,7 +275,7 @@ If the Python environment does not contain the packages required for compilation
 sudo nmcli dev wifi   # List the WiFi that the robot searched
 sudo nmcli dev wifi connect "Your WiFi name" password "Your WiFi password" ifname wlan0   # To connect the robot to the public network, you need to change the quotation marks of "Your WiFi name" and "Your WiFi password" to the name and password of WiFi
 ```
-> Caution: If the robot still cannot access the public network after connecting to a WiFi that can access the public network, please try to delete the `gateway4` line in the `/etc/netplan/config.yaml` file and then check whether the robot dog can access the public network.
+> Caution: If the robot still cannot access the public network after connecting to a WiFi that can access the public network, please try to delete the `gateway4` line in the `/etc/netplan/config.yaml` file and then check whether the robot can access the public network.
 
 After successfully connecting the development device to the public network, use ***apt*** and ***pip*** to install the required packages, following the steps below:
 ```bash
