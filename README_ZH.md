@@ -260,6 +260,7 @@ help("modules")   # 检查Python环境包含的包
 sudo nmcli dev wifi   #列出机器狗检索到的WiFi
 sudo nmcli dev wifi connect "Your WiFi name" password "Your WiFi password" ifname wlan0   #将机器狗连接至公网，需要将引号中的Your WiFi name与Your WiFi password改为WiFi的名称与密码
 ```
+> 注意：若将机器狗连接至可访问公网的WiFi后，机器狗任然无法访问公网，请尝试删除`/etc/netplan/config.yaml`文件中的`gateway4`行，再检查机器狗是否能访问公网。
 
 将机器狗成功连接至公网后，使用***apt***与***pip***安装所需的包，参照以下步骤进行:
 ```bash
