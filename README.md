@@ -119,8 +119,8 @@ The developer can remotely connect to the motion host via ssh to configure the d
 	local_port = 43893
 	~
 	```
-- Modify the IP address in the first line of the config file so that **MotionSDK** can receive motion data from the robot:
-	- If **MotionSDK** runs on the motion host of robot, please reset the IP address to `192.168.1.120`;
+- Modify the IP address in the first line of the config file so that **MotionSDK** can receive motion data from the robot (refer to Chapter 4 for the motion host IP address) :
+	- If **MotionSDK** runs on the motion host of robot, please reset it to the connected motion host IP : `192.168.1.120` or  `192.168.2.1`;
 	- If **MotionSDK** runs on your development host, please reset it to the static IP address of your development host:  `192.168.1.xxx` or `192.168.2.xxx`.
 
 - Then configure the model of your robot.
@@ -130,20 +130,28 @@ The developer can remotely connect to the motion host via ssh to configure the d
 	cd ~/jy_exe/scripts
 	./stop.sh
 	./run.sh
-	```	    
-	<img src="./img/imgCheckVersion.png"/>
-- The version information will then appear in the terminal (as shown above). If the username is `user` (see Section 4 for the username) and **Deeprcs Version** is earlier than **1.4.24(97)**, or if the username is `firefly` and **Deeprcs Version** is earlier than **1.4.21(94)**:
+	```
 
-	- Open a new terminal and enter the following command:
+	<img src="./img/imgCheckVersion.png"/>
+
+	- The version information will then appear in the terminal (as shown above). If the username is `user` (see Section 4 for the username) and **Deeprcs Version** is earlier than **1.4.24(97)**, or if the username is `firefly` and **Deeprcs Version** is earlier than **1.4.21(94)**:
+
+		- Open a new terminal and enter the following command:
 		```Bash
 		cd ~/jy_exe/conf
 		vim name.toml
 		```
-	- The config file ***name.toml*** has the following contents：
+		- The config file ***name.toml*** has the following contents：
 		```bash
 		name = standard_1
 		```
-	- Replace the current value of `name` with `standard_2`.
+		- Replace the current value of `name` with `standard_2`.
+	- If the information appears in the terminal as shown below, you do not need to change the file ***name.toml*** , close the current terminal. To print log messages, open a new terminal and enter the following command (refer to Chapter 4 for password):   
+		<img src="./img/newCheckVersion.png"/>
+		```Bash
+		cd ~/jy_exe/scripts
+		./show_log.sh
+		```
 
 - Restart the motion program to apply the new configuration:
 	```bash

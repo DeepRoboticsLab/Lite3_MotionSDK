@@ -108,10 +108,9 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 	ip = '192.168.1.102'        # Motion host will send data to this IP address
 	target_port = 43897
 	local_port = 43893
-	~
 	```
-- 修改配置文件第一行中的IP地址，使得 **MotionSDK** 能够接收到机器狗数据:
-	- 如果 **MotionSDK** 在机器人运动主机内运行，IP设置为运动主机IP：`192.168.1.120`；  
+- 修改配置文件第一行中的IP地址，使得 **MotionSDK** 能够接收到机器狗数据（运动主机地址参考第4节）:
+	- 如果 **MotionSDK** 在机器人运动主机内运行，IP设置为连接到的运动主机IP：`192.168.1.120`或`192.168.2.1`；  
 	- 如果 **MotionSDK** 在开发者自己的开发主机中运行，设置为开发主机的静态IP：`192.168.1.XXX`或`192.168.2.xxx`。
 	
 - 网络配置完成后，进行型号配置，首先需要检查运动程序版本，打开一个新的终端，输入以下命令(密码请参照第4节)：
@@ -121,18 +120,25 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 	./run.sh
 	```
 	<img src="./img/imgCheckVersion.png"/>
-- 随后终端中会出现版本信息（如上图所示），若用户名为`user`（用户名请参照第4节）且**Deeprcs Version**早于**1.4.24(97)**，或者用户名为`firefly`且**Deeprcs Version**早于**1.4.21(94)**，则需要检查配置文件***name.toml***:
 
-	- 打开一个新的终端，输入以下命令：
+	- 随后终端中会出现版本信息（如上图所示），若用户名为`user`（用户名请参照第4节）且**Deeprcs Version**早于**1.4.24(97)**，或者用户名为`firefly`且**Deeprcs Version**早于**1.4.21(94)**，则需要检查配置文件***name.toml***:  
+		- 打开一个新的终端，输入以下命令：
 		```Bash
 		cd ~/jy_exe/conf
 		vim name.toml
 		```
-	- 配置文件***name.toml***内容如下：
+		- 配置文件***name.toml***内容如下：
 		```Bash
 		name = standard_1
 		```
-	- 将name值配置为standard_2。
+		- 将name值配置为standard_2。
+
+	- 若终端中出现的信息如下图所示，则无需更改配置文件***name.toml***，关闭当前终端。如需打印日志信息，可打开一个新的终端，输入以下命令（密码参照第4节）：  
+		<img src="./img/newCheckVersion.png"/>
+		```Bash
+		cd ~/jy_exe/scripts
+		./show_log.sh
+		```
 
 - 重启运动程序使配置生效：
 	```bash
