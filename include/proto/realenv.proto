@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package realenv;
+
+// The policy service definition.
+service PolicyService {
+  // Sends a command
+  rpc GetAction (Observation) returns (Action) {}
+}
+
+// The request message containing the robot's observation data.
+message Observation {
+  uint32 tick = 1; // Timestamp for the data.
+
+  // IMU data
+  message ImuData {
+    float angle_roll = 1; // Roll angle (degrees).
+    float angle_pitch = 2; // Pitch angle (degrees).
+    float angle_yaw = 3; // Yaw angle (degrees).
+    float angular_velocity_roll = 4; // Roll angular velocity (degrees/second).
+    float angular_velocity_pitch = 5; // Pitch angular velocity (degrees/second).
+    float angular_velocity_yaw = 6; // Yaw angular velocity (degrees/second).
+    float acc_x = 7; // X-axis acceleration (m/s^2).
+    float acc_y = 8; // Y-axis acceleration (m/s^2).
+    float acc_z = 9; // Z-axis acceleration (m/s^2).
+  }
+  ImuData imu = 2;
+
+  // Joint data
+  message JointData {
+    float position = 1; // Motor position (radians).
+    float velocity = 2; // Motor velocity (radians/second).
+    float torque = 3; // Motor torque (Nm).
+    float temperature = 4; // Motor temperature (Celsius).
+  }
+  message LegData {
+    repeated JointData fl_leg = 1; // Front left leg motors.
+    repeated JointData fr_leg = 2; // Front right leg motors.
+    repeated JointData hl_leg = 3; // Hind left leg motors.
+    repeated JointData hr_leg = 4; // Hind right leg motors.
+  }
+  LegData joint_data = 3;
+
+  // Contact force data
+  message ContactForce {
+    repeated double fl_leg = 1; // Front left leg forces (x, y, z).
+    repeated double fr_leg = 2; // Front right leg forces (x, y, z).
+    repeated double hl_leg = 3; // Hind left leg forces (x, y, z).
+    repeated double hr_leg = 4; // Hind right leg forces (x, y, z).
+  }
+  ContactForce contact_force = 4;
+}
+
+// The response message containing the robot's action data.
+message Action {
+  // Joint command data
+  message JointCmd {
+    float position = 1; // Desired joint position (radians).
+    float velocity = 2; // Desired joint velocity (radians/second).
+    float torque = 3; // Desired joint torque (Nm).
+    float kp = 4; // Proportional gain of joint controller.
+    float kd = 5; // Derivative gain of joint controller.
+  }
+  message RobotCmd {
+    repeated JointCmd fl_leg = 1; // Front left leg joint commands.
+    repeated JointCmd fr_leg = 2; // Front right leg joint commands.
+    repeated JointCmd hl_leg = 3; // Hind left leg joint commands.
+    repeated JointCmd hr_leg = 4; // Hind right leg joint commands.
+  }
+  RobotCmd robot_cmd = 1;
+}
