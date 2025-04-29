@@ -1,3 +1,24 @@
+# How to use this repo to run neural nets on Lite3
+We use vcpkg to mange grpc and protoc.
+'''
+git clone https://github.com/microsoft/vcpkg.git
+./bootstrap-vcpkg.sh -disableMetrics   # if linux
+cd vcpkg
+./vcpkg install grpc && ./vcpkg install protobuf
+./vcpkg integrate install
+'''
+Generate prote related files
+'''
+cd ../Lite3_MotionSDK
+./install.sh
+'''
+Compile main cpp
+'''
+cd build
+cmake ../ -DCMAKE_TOOLCHAIN_FILE=/home/superfhwl/repo/yaoxiang/dog_sim2real_0418/vcpkg/scripts/buildsystems/vcpkg.cmake    # replace with the path you see when running ./vcpkg integrate install
+'''
+
+
 # Jueying Lite3 Motion SDK
 
 [简体中文](./README_ZH.md)

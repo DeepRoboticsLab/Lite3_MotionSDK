@@ -11,7 +11,7 @@ else()
 endif()
 
 # vcpkg
-set(VCPKG_HOME "/home/superfhwl/桌面/yaoxiang/dog_sim2real/0408_1/vcpkg/vcpkg")
+set(VCPKG_HOME "../vcpkg/vcpkg")
 
 # Protobuf
 set(protobuf_MODULE_COMPATIBLE TRUE)

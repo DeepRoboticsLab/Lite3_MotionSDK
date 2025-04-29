@@ -16,6 +16,14 @@ void PrintRobotData(const RobotData* robot_data, std::ofstream& file);
 /// @return An Observation object populated with data from RobotData.
 realenv::Observation ConvertRobotDataToObservation(const RobotData& robot_data);
 
+/// @brief Creates a RobotCmd structure from a set of leg positions.
+/// @param fl_leg_positions The positions of the front left leg.
+/// @param fr_leg_positions The positions of the front right leg.
+/// @param hl_leg_positions The positions of the hind left leg.
+/// @param hr_leg_positions The positions of the hind right leg.
+/// @return A RobotCmd structure populated with the given leg positions.
+RobotCmd CreateRobotCmdFromNumber(double fl_leg_positions[3], double fr_leg_positions[3], double hl_leg_positions[3], double hr_leg_positions[3], double kp, double kd);
+
 
 /// @brief Converts a realenv::Action into a RobotCmd structure.
 /// @param action The Action object received from the policy.

@@ -2,6 +2,7 @@
 #include <fstream> 
 #include "robot_types.h"
 #include "realenv.grpc.pb.h"
+#include "motion_spline.h"
 
 const double kRadian2Degree = 180 / 3.1415926;
 
@@ -135,6 +136,52 @@ realenv::Observation ConvertRobotDataToObservation(const RobotData& robot_data) 
 
 #include "robot_types.h"
 #include "realenv.grpc.pb.h"
+
+
+/// @brief Creates a RobotCmd structure from a set of leg positions.
+/// @param fl_leg_positions The positions of the front left leg.
+/// @param fr_leg_positions The positions of the front right leg.
+/// @param hl_leg_positions The positions of the hind left leg.
+/// @param hr_leg_positions The positions of the hind right leg.
+/// @return A RobotCmd structure populated with the given leg positions.
+RobotCmd CreateRobotCmdFromNumber(double fl_leg_positions[3], double fr_leg_positions[3], double hl_leg_positions[3], double hr_leg_positions[3], double kp, double kd) {
+    RobotCmd robot_cmd;
+    memset(&robot_cmd, 0, sizeof(robot_cmd));
+
+    for (int i = 0; i < 3; i++) {
+        robot_cmd.fl_leg[i].position = fl_leg_positions[i];
+        robot_cmd.fl_leg[i].velocity = 0;
+        robot_cmd.fl_leg[i].torque = 0;
+        robot_cmd.fl_leg[i].kp = kp;
+        robot_cmd.fl_leg[i].kd = kd;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        robot_cmd.fr_leg[i].position = fr_leg_positions[i];
+        robot_cmd.fr_leg[i].velocity = 0;
+        robot_cmd.fr_leg[i].torque = 0;
+        robot_cmd.fr_leg[i].kp = kp;
+        robot_cmd.fr_leg[i].kd = kd;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        robot_cmd.hl_leg[i].position = hl_leg_positions[i];
+        robot_cmd.hl_leg[i].velocity = 0;
+        robot_cmd.hl_leg[i].torque = 0;
+        robot_cmd.hl_leg[i].kp = kp;
+        robot_cmd.hl_leg[i].kd = kd;
+    }
+
+    for (int i = 0; i < 3; i++) {
+        robot_cmd.hr_leg[i].position = hr_leg_positions[i];
+        robot_cmd.hr_leg[i].velocity = 0;
+        robot_cmd.hr_leg[i].torque = 0;
+        robot_cmd.hr_leg[i].kp = kp;
+        robot_cmd.hr_leg[i].kd = kd;
+    }
+
+    return robot_cmd;
+}
 
 /// @brief Converts a realenv::Action into a RobotCmd structure.
 /// @param action The Action object received from the policy.
