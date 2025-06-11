@@ -35,5 +35,14 @@ RobotCmd CreateRobotCmd(const realenv::Action& action);
 /// @param file The output file stream to write the data.
 void PrintRobotCmd(const RobotCmd& robot_cmd, std::ofstream& file);
 
+/// @brief Saves robot data to a CSV file.
+/// @param robot_data Pointer to the RobotData structure containing the data to save.
+/// @param file The output file stream to write the data.
+void SaveRobotDataToCSV(const RobotData* robot_data, std::ofstream& file);
+
+/// @brief Writes the CSV header to the file.
+/// @param file The output file stream to write the header.
+void WriteCSVHeader(std::ofstream& file);
+
 
 #endif // UTILS_H

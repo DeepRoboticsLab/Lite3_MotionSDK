@@ -242,3 +242,87 @@ void PrintRobotCmd(const RobotCmd& robot_cmd, std::ofstream& file) {
         }
     }
 }
+
+/// @brief Saves robot data to a CSV file.
+/// @param robot_data Pointer to the RobotData structure containing the data to save.
+/// @param file The output file stream to write the data.
+void SaveRobotDataToCSV(const RobotData* robot_data, std::ofstream& file) {
+    if (!robot_data || !file.is_open()) {
+        std::cerr << "Invalid robot data pointer or file not open!" << std::endl;
+        return;
+    }
+
+    // Write tick
+    file << robot_data->tick << ",";
+
+    // Write IMU data
+    file << robot_data->imu.angle_roll << ","
+         << robot_data->imu.angle_pitch << ","
+         << robot_data->imu.angle_yaw << ","
+         << robot_data->imu.angular_velocity_roll << ","
+         << robot_data->imu.angular_velocity_pitch << ","
+         << robot_data->imu.angular_velocity_yaw << ","
+         << robot_data->imu.acc_x << ","
+         << robot_data->imu.acc_y << ","
+         << robot_data->imu.acc_z << ",";
+
+    // Write joint data for each leg
+    const JointData* legs[] = {robot_data->joint_data.fl_leg, 
+                              robot_data->joint_data.fr_leg,
+                              robot_data->joint_data.hl_leg, 
+                              robot_data->joint_data.hr_leg};
+
+    for (int leg = 0; leg < 4; ++leg) {
+        for (int joint = 0; joint < 3; ++joint) {
+            const JointData& joint_data = legs[leg][joint];
+            file << joint_data.position * kRadian2Degree << ","
+                 << joint_data.velocity * kRadian2Degree << ","
+                 << joint_data.torque << ","
+                 << joint_data.temperature << ",";
+        }
+    }
+
+    // Write contact force data
+    for (int leg = 0; leg < 4; ++leg) {
+        file << robot_data->contact_force.leg_force[leg * 3 + 0] << ","
+             << robot_data->contact_force.leg_force[leg * 3 + 1] << ","
+             << robot_data->contact_force.leg_force[leg * 3 + 2] << ",";
+    }
+
+    file << std::endl;
+}
+
+/// @brief Writes CSV header to the file.
+/// @param file The output file stream to write the header.
+void WriteCSVHeader(std::ofstream& file) {
+    if (!file.is_open()) {
+        std::cerr << "File stream is not open!" << std::endl;
+        return;
+    }
+
+    // Write header for tick
+    file << "tick,";
+
+    // Write header for IMU data
+    file << "imu_roll,imu_pitch,imu_yaw,"
+         << "imu_roll_vel,imu_pitch_vel,imu_yaw_vel,"
+         << "imu_acc_x,imu_acc_y,imu_acc_z,";
+
+    // Write header for joint data
+    const char* leg_names[] = {"fl", "fr", "hl", "hr"};
+    for (const char* leg : leg_names) {
+        for (int joint = 1; joint <= 3; ++joint) {
+            file << leg << "_j" << joint << "_pos,"
+                 << leg << "_j" << joint << "_vel,"
+                 << leg << "_j" << joint << "_torque,"
+                 << leg << "_j" << joint << "_temp,";
+        }
+    }
+
+    // Write header for contact forces
+    for (const char* leg : leg_names) {
+        file << leg << "_force_x," << leg << "_force_y," << leg << "_force_z,";
+    }
+
+    file << std::endl;
+}

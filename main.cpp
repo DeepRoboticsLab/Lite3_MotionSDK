@@ -45,7 +45,8 @@ int main(int argc, char* argv[]){
   memset(&robot_joint_cmd, 0, sizeof(robot_joint_cmd));
   memset(&robot_joint_cmd_nn, 0, sizeof(robot_joint_cmd_nn));
 
-  Sender* send_cmd          = new Sender("192.168.2.1",43893);              ///< Create send thread
+  // Sender* send_cmd          = new Sender("192.168.2.1",43893);              ///< Create send thread
+  Sender* send_cmd          = new Sender("192.168.1.120",43893);              ///< Create send thread
   Receiver* robot_data_recv = new Receiver();                                 ///< Create a receive resolution
   robot_data_recv->RegisterCallBack(OnMessageUpdate);
   MotionSpline motion_spline;                                            ///< Demos for testing can be deleted by yourself
@@ -113,8 +114,8 @@ int main(int argc, char* argv[]){
 
       motion_spline.Motion(robot_joint_cmd,now_time,*robot_data, 45, 0.7, 1.5); 
     }
-    // compute action from neural network every 0.02s (50Hz) 
-    if (time_tick % 50 == 0 && time_tick >= 10000) {
+    // compute action from neural network every 0.02s (50Hz)   4 * 0.005
+    if (time_tick % 20 == 0 && time_tick >= 10000) {
       cout << "try to get action from neural network" << endl;
       // Convert RobotData to Observation
       realenv::Observation observation = ConvertRobotDataToObservation(*robot_data);
@@ -138,7 +139,7 @@ int main(int argc, char* argv[]){
     }
     // // do spline interpolation
     if (time_tick >= 10000) {
-      robot_joint_cmd = CreateRobotCmdFromNumber(fl_leg_positions, fr_leg_positions, hl_leg_positions, hr_leg_positions, 45, 2.5);
+      robot_joint_cmd = CreateRobotCmdFromNumber(fl_leg_positions, fr_leg_positions, hl_leg_positions, hr_leg_positions, 35, 1.4);
     }
     if(is_message_updated_){ 
       // if (time_tick < 10000){
@@ -149,17 +150,22 @@ int main(int argc, char* argv[]){
 
     // // print robot data
     // // Open the file in append mode
-    // std::ofstream file("robot_data.txt", std::ios::app);
+    // std::ofstream file("robot_data.csv", std::ios::app);
 
     // // print robot data
     // // Open the file in append mode
     // if (!file.is_open()) {
-    //     std::cerr << "Failed to open file: robot_data.txt" << std::endl;
+    //     std::cerr << "Failed to open file: robot_data.csv" << std::endl;
     //     return 1; // Exit the program if the file cannot be opened
     // }
-    // // Print robot data to the file
-    // file << time_tick << endl;
-    // PrintRobotCmd(robot_joint_cmd, file);
+    // // // Print robot data to the file
+    // // file << time_tick << endl;
+    // // // PrintRobotCmd(robot_joint_cmd, file);
+    // // PrintRobotData(robot_data, file);
+    // if (time_tick == 1) {
+    //   WriteCSVHeader(file);
+    // }
+    // SaveRobotDataToCSV(robot_data, file);
     // // Close the file
     // file.close();
  
