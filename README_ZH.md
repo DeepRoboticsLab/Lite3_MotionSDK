@@ -58,12 +58,15 @@ $$pos_{goal}=0, vel_{goal}=0, kp=0, kd=0, t_{ff} = 0$$
 $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 &nbsp;
-## 3 SDK下载及解压
+## 3 SDK包下载
 
-- 下载 **Lite3_MotionSDK**，并解压。
+- 使用git工具将 **Lite3_MotionSDK** 代码仓库克隆到本地:
+	```bash
+	cd xxxxxxxxxx    #cd <to where you want to store this project>
+	git clone --recurse-submodules https://github.com/DeepRoboticsLab/Lite3_MotionSDK.git
+	```
 
-
-&nbsp;
+&nbsp; 
 ## 4 确定运动主机地址、用户名和密码
 
 ### 4.1 确定运动主机地址
@@ -78,15 +81,19 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 ### 4.2 确定用户名和密码
 
-绝影Lite3的运动主机有三组可能的用户名和密码：
+一般情况下，绝影Lite3的运动主机的用户名和密码为：
 
 |用户名|密码|  
 | :------- | :-------- |
 |`ysc`|`'`（英文单引号）|
+
+请用上述用户名ssh到运动主机，若成功，则用户名和密码如上所示。
+若上述用户名与密码无法ssh到运动主机，则尝试以下用户名ssh连接到运动主机，以确定与其匹配的用户名和密码。
+
+|用户名|密码|  
+| :------- | :-------- |
 |`user`|`123456`|
 |`firefly`|`firefly`|
-
-请分别使用上述三组用户名尝试ssh连接到运动主机，以确定与其匹配的用户名和密码。
 
 &nbsp;
 ## 5 配置数据上报地址和型号参数

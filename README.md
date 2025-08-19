@@ -67,12 +67,15 @@ Hybrid Control:
 $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 &nbsp;
-## 3 SDK Download and Unzip
+## 3 SDK Download
 
-- Download ***Lite3_MotionSDK*** and unzip.
+- Clone **Lite3_MotionSDK** repository to local host:
+	```bash
+	cd xxxxxxxxxx    #cd <to where you want to store this project>
+	git clone --recurse-submodules https://github.com/DeepRoboticsLab/Lite3_MotionSDK.git
+	```
 
-
-&nbsp;
+&nbsp; 
 ## 4 Identify the Motion Host Address, Username and Code
 
 ### 4.1 Identify the Motion Host Address
@@ -87,15 +90,19 @@ $$pos_{goal}=3.14, vel_{goal}=0, kp=30, kd=1, t_{ff} = 1$$
 
 ### 4.2 Identify Username and Password
 
-Jueying Lite3 motion host has three sets of possible usernames and passwords:
+In general, the Motion Host of Jueying Lite3 uses the following default username and password:
 
 |Username|Password|  
 | :------- | :-------- |
 |`ysc`|`'` (a single quote)|
+
+Please use the above username to SSH into the Motion Host. If the login is successful, then the username and password are as stated above.
+If the above username and password do not work, try the following usernames to SSH into the Motion Host to identify the correct matching username and password.
+
+|Username|Password|  
+| :------- | :-------- |
 |`user`|`123456`|
 |`firefly`|`firefly`|
-
-Please try using each set of usernames and passwords sequentially for SSH connection to determine the correct ones.
 
 &nbsp;
 ## 5 Configure the Motion Host
