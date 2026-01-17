@@ -3,7 +3,7 @@
 [English](./README.md)
 
 > [!NOTE]
-> 此代码仓库已过时且不再维护，请使用最新版训练代码：[Lite3_rl_deploy](https://github.com/DeepRoboticsLab/Lite3_rl_deploy)
+> 请使用最新版rl训练代码：[rl_training](https://github.com/DeepRoboticsLab/rl_training)
 > 此仓库实现了mpc在lite3的部署流程，[Lite3_rl_deploy](https://github.com/DeepRoboticsLab/Lite3_rl_deploy)实现了强化学习在lite3上的部署流程。
 
 <img src="./img/testFlow.png"/>

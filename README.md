@@ -3,7 +3,7 @@
 [简体中文](./README_ZH.md)
 
 > [!NOTE]
-> This repo is now outdated and not supported! Please use the new [Lite3_rl_deploy](https://github.com/DeepRoboticsLab/Lite3_rl_deploy) repo.
+> Please use the new [rl_training](https://github.com/DeepRoboticsLab/rl_training) repo.
 > This repo is a implementation of MPC on lite3 robot and [Lite3_rl_deploy](https://github.com/DeepRoboticsLab/Lite3_rl_deploy) is a implementation of rl on lite3 robot.
 
 <img src="./img/testFlowEN.png"/>
